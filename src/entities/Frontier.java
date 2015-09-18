@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -9,31 +10,47 @@ import navigators.Constants;
 
 public class Frontier {
 	private static int algorithm;
-	private static Stack<Vertex> stack;
-	private static Queue<Vertex> queue;
-	private static PriorityQueue<Vertex> priorityQueue;
+	private static Stack<Node> stack;
+	private static Queue<Node> queue;
+	private static PriorityQueue<Node> priorityQueue;
+	private static int maxSize = 0;
 	
 	public Frontier(int navigatorType) {
 		algorithm = navigatorType;
 		switch (algorithm) {
 			case Constants.BFS:
-				queue = new LinkedList<Vertex>();			
+				queue = new LinkedList<Node>();			
 				break;
 			case Constants.DFS:
-				stack = new Stack<Vertex>();			
+				stack = new Stack<Node>();			
 				break;
 			case Constants.GreedyBFS:
-				priorityQueue = new PriorityQueue<Vertex>();			
+				NodeDistanceComparator ndc = new NodeDistanceComparator();
+				priorityQueue = new PriorityQueue<Node>(200, ndc);			
 				break;
 			default:
 				break;
 		}
 	}
+	
+	public class NodeDistanceComparator implements Comparator<Node>
+	{
+		@Override
+		public int compare(Node n1, Node n2) {
+			if (n1.getDistToGoal() < n2.getDistToGoal()) {
+				return -1;
+			}
+			if (n1.getDistToGoal() > n2.getDistToGoal()) {
+				return 1;
+			}
+			return 0;
+		}
+	}
 
-	public void push(Vertex vertex) {
+	public void push(Node vertex) {
 		switch (algorithm) {
 			case Constants.BFS:
-				queue.add(vertex);			
+				queue.add(vertex);	
 				break;
 			case Constants.DFS:
 				stack.add(vertex);
@@ -44,10 +61,13 @@ public class Frontier {
 			default:
 				break;
 		}
+		if (this.size() > maxSize) {
+			maxSize = this.size();
+		}
 	}
 	
-	public Vertex pop() {
-		Vertex vertex = null;
+	public Node pop() {
+		Node vertex = null;
 		switch (algorithm) {
 			case Constants.BFS:
 				vertex = queue.remove();			
@@ -80,6 +100,28 @@ public class Frontier {
 				break;
 		}
 		return isEmpty;
+	}
+	
+	public int size() {
+		int size = 0;
+		switch (algorithm) {
+			case Constants.BFS:
+				size = queue.size();
+				break;
+			case Constants.DFS:
+				size = stack.size();
+				break;
+			case Constants.GreedyBFS:
+				size = priorityQueue.size();			
+				break;
+			default:
+				break;
+		}
+		return size;
+	}
+
+	public static int getMaxSize() {
+		return maxSize;
 	}
 	
 }

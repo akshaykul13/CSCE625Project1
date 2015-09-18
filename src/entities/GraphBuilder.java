@@ -15,7 +15,6 @@ public class GraphBuilder {
 		// read vertices
 		in.next();
 		int vertices = in.nextInt();
-		System.out.println(vertices);
 		Graph graph = new Graph(vertices);
 		for (int i = 0; i < vertices; i++) {
 			int id = in.nextInt();
@@ -26,14 +25,13 @@ public class GraphBuilder {
 		// read edges
 		in.next();
 		int edges = in.nextInt();
-		System.out.println(edges);
 		for (int i = 0; i < edges; i++) {
 			int id = in.nextInt();
 			int v = in.nextInt();
 			int w = in.nextInt();			
 			graph.addEdge(id, v, w);
 		}
-		
+		in.close();
 		return graph;
 	}
 }

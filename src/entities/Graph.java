@@ -6,12 +6,12 @@ public class Graph {
 	private final int V;
 	private int E;	
 	private ArrayList<Edge>[] adj;
-	private Vertex vertices[];
+	private Node vertices[];
 	
 	public Graph(int V) {
 		this.V = V;
 		this.E = 0;
-		vertices = new Vertex[V];
+		vertices = new Node[V];
 		adj = (ArrayList<Edge>[])new ArrayList[V];
 		for(int v = 0; v < V; v++){
 			adj[v] = new ArrayList<Edge>();
@@ -19,7 +19,7 @@ public class Graph {
 	}
 	
 	public void addVertex(int id, int x, int y){
-		Vertex vertex = new Vertex(id, x, y);
+		Node vertex = new Node(id, x, y);
 		vertices[id] = vertex;
 	}
 	
@@ -31,7 +31,7 @@ public class Graph {
 		E = E + 2;
 	}
 	
-	public Vertex[] getVertices() {
+	public Node[] getVertices() {
 		return vertices;
 	}
 	
