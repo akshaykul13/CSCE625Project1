@@ -49,11 +49,12 @@ public class PathFinder {
 		int pathLength = 0;
 		int parentID = poppedVertex.getId();
 		ArrayList<String> path = new ArrayList<>();
+		System.out.println();
 		while (parentID != -1) {
 			Node node = graph.getVertices()[parentID];
 			String pathVertex = "vertex " + parentID + "(" + node.getX() + "," + node.getY() + ")";
-			path.add(pathVertex);
-			// System.out.println(node.getX() + " " + node.getY());
+			path.add(pathVertex);			
+			System.out.println(node.getX() + " " + node.getY());
 			pathLength++;
 			parentID = node.getParent();
 		}
