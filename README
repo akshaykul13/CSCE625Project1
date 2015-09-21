@@ -1,0 +1,29 @@
+CSCE 625 - Artificial Intelligence
+Project 1
+
+There are three ways to run this project.
+The 
+
+1. The source files are given in the folder CSCE625Project1/src. These files can be compiled and the navigators/Navigator.class should be run.
+	akshay@akshay-Aspire-TC-120:~/git/CSCE625Project1/bin$ java -cp . navigators/Navigator BFS /home/akshay/git/CSCE625Project1/src/ATM.graph 1 1 4 4
+	Argument 1: Algorithm Name (BFS | DFS | GBFS)
+	Argument 2: Path to the graph file
+	Argument 3-6: Coordinates of the source and destination
+
+	Add -d to the end for debug messages
+	akshay@akshay-Aspire-TC-120:~/git/CSCE625Project1/bin$ java -cp . navigators/Navigator BFS /home/akshay/git/CSCE625Project1/src/ATM.graph 1 1 4 4 -d
+
+2. The class files are given in the folder CSCE625Project1/bin. The navigators/Navigator.class should be run.
+	akshay@akshay-Aspire-TC-120:~/git/CSCE625Project1/bin$ java -cp . navigators/Navigator BFS /home/akshay/git/CSCE625Project1/src/ATM.graph 1 1 4 4
+	Argument 1: Algorithm Name (BFS | DFS | GBFS)
+	Argument 2: Path to the graph file
+	Argument 3-6: Coordinates of the source and destination
+
+	Add -d to the end for debug messages
+	akshay@akshay-Aspire-TC-120:~/git/CSCE625Project1/bin$ java -cp . navigators/Navigator BFS /home/akshay/git/CSCE625Project1/src/ATM.graph 1 1 4 4 -d
+
+3. The Eclipse project is given in the zip file called CSCE625Project1.zip/CSCE625Project1.tar.gz, this project should be imported into Eclipse and the Navigator class in the navigators package should be run.
+
+Recommended method is point 2.
+
+
