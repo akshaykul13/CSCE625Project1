@@ -9,16 +9,23 @@ import entities.Node;
 public class Navigator {
 	private static Graph graph;
 
-	public static void main(String[] args) throws FileNotFoundException {		
+	public static void main(String[] args) throws FileNotFoundException {
+		boolean debug = false;
 		int navigatorType = getNavigator(args[0]);
 		graph = GraphBuilder.buildGraph(args[1]);
 		int x1 = Integer.parseInt(args[2]);
 		int y1 = Integer.parseInt(args[3]);
 		int x2 = Integer.parseInt(args[4]);
 		int y2 = Integer.parseInt(args[5]);
+		if (args.length == 7) {
+			System.out.println("Debug Mode");
+			System.out.println("Vertices = " + graph.V() + ", Edges = " + graph.E());
+			System.out.println();
+			debug = true;
+		}
 		int vertex1ID = getIDFromCoordinates(x1, y1);
 		int vertex2ID = getIDFromCoordinates(x2, y2);
-		PathFinder.search(graph, graph.getVertices()[vertex1ID], graph.getVertices()[vertex2ID], navigatorType);
+		PathFinder.search(graph, graph.getVertices()[vertex1ID], graph.getVertices()[vertex2ID], navigatorType, debug);
 	}
 
 	private static int getNavigator(String navigator) {

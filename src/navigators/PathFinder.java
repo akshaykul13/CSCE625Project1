@@ -10,20 +10,24 @@ import entities.Node;
 
 public class PathFinder {
 		
-	public static void search(Graph graph, Node source, Node destination, int navigatorType) {
+	public static void search(Graph graph, Node source, Node destination, int navigatorType, boolean debug) {
 		int[] status = new int[graph.V()];
 		Frontier frontier = new Frontier(navigatorType);
 		frontier.push(source);
+		if (debug) {
+			System.out.println("pushed " + source.getId() + "(" + source.getX() + "," + source.getY() + ")");	
+		}
 		status[source.getId()] = Constants.VISITED;
 		source.setParent(-1);
-		source.setDistToGoal(destination);
-		// System.out.println("Pushed Vertex " + source.getId() + '(' + source.getX() + ',' + source.getY() + ')');
+		source.setDistToGoal(destination);		
 		int iterations = 0;
 		int verticesVisited = 1;
 		while (!frontier.isEmpty()) {
-			iterations++;
+			iterations++;			
 			Node poppedVertex = frontier.pop();
-			// System.out.println("Popped Vertex " + poppedVertex.getId() + '(' + poppedVertex.getX() + ',' + poppedVertex.getY() + ')');
+			if (debug) {
+				System.out.println("iter=" + iterations + ", popped=" + poppedVertex.getId() + ", depth=" + frontier.size() + ", dist2goal=" + poppedVertex.getDistToGoal());	
+			}		
 			if (poppedVertex.getId() == destination.getId()) {
 				System.out.println("Found Node"); 
 				int pathLength = printTracebackPath(poppedVertex, graph);
@@ -37,7 +41,9 @@ public class PathFinder {
 					neighborVertex.setParent(poppedVertex.getId());
 					neighborVertex.setDistToGoal(destination);
 					frontier.push(neighborVertex);
-					// System.out.println("Pushed Vertex " + neighborVertex.getId() + '(' + neighborVertex.getX() + ',' + neighborVertex.getY() + ')');
+					if (debug) {
+						System.out.println("pushed " + neighborVertex.getId() + '(' + neighborVertex.getX() + ',' + neighborVertex.getY() + ')');	
+					}
 					status[neighborID] = Constants.VISITED;
 					verticesVisited++;
 				}				
@@ -50,6 +56,7 @@ public class PathFinder {
 		int parentID = poppedVertex.getId();
 		ArrayList<String> path = new ArrayList<>();
 		System.out.println();
+		System.out.println("Visualization Path");
 		while (parentID != -1) {
 			Node node = graph.getVertices()[parentID];
 			String pathVertex = "vertex " + parentID + "(" + node.getX() + "," + node.getY() + ")";
@@ -60,6 +67,7 @@ public class PathFinder {
 		}
 		Collections.reverse(path);
 		System.out.println();
+		System.out.println("Solution Path");
 		for (String string : path) {
 			System.out.println(string);
 		}
